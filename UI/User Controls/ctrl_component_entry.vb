@@ -155,4 +155,35 @@
             e.SuppressKeyPress = True
         End If
     End Sub
+
+    ''' <summary>
+    ''' Gvn the ItemSet Primary Key save the Component Information to the database
+    ''' </summary>
+    Public Sub SaveComponent(ByVal ItemSet_Pk As Integer)
+        'get the selected Compontent type
+        Dim ComponentType_PK As Integer
+        ComponentType_PK = cmb_component_type.SelectedValue 'I think this returns the PK of the selected component type
+
+        Dim Length As Integer
+        Integer.TryParse(txt_length.Text, Length)
+        Dim Width As Integer
+        Integer.TryParse(txt_width.Text, Width)
+        Dim Height As Integer
+        Integer.TryParse(txt_height.Text, Height)
+        Dim Diameter As Integer
+        Integer.TryParse(txt_diameter.Text, Diameter)
+        Dim Circumference As Integer
+        Integer.TryParse(txt_circumference.Text, Circumference)
+        Dim SquareInches As Decimal
+        Decimal.TryParse(txt_square_feet.Text, SquareInches)
+        Dim RowsOfRadiators As Integer
+        Integer.TryParse(txt_rows_of_radiators.Text, RowsOfRadiators)
+        Dim TubesPerRow As Integer
+        Integer.TryParse(txt_tubes_per_row.Text, TubesPerRow)
+        Dim Quantity As Integer
+        Integer.TryParse(txt_quantity.Text, Quantity)
+
+        DAL.Component_Insert(ComponentType_PK, ItemSet_Pk, Length, Width, Height, Diameter, Circumference, SquareInches,
+                             RowsOfRadiators, TubesPerRow, Quantity, PaintableSqFt:=Nothing) 'Currently Not worried about Paintable Square Feet
+    End Sub
 End Class

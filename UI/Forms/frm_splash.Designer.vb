@@ -30,7 +30,7 @@ Partial Class frm_splash
         '
         'tmr_splash
         '
-        Me.tmr_splash.Interval = 50
+        Me.tmr_splash.Interval = 10
         '
         'tmr_fade_in
         '

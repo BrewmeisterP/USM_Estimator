@@ -17,5 +17,12 @@ Namespace BusinessObjects
         Private Shared Function Build(iName As String, iCity As String, iState As String, iZip As String, iPhoneNumber As String, iKey As Integer) As Customer
             Return New Customer(iName, iCity, iState, iZip, iPhoneNumber, iKey)
         End Function
+
+        Public Shared Function BuildHardCoded() As Customers
+            Dim oCustomers As New Customers()
+            Dim oCustomer As New Customer("Dan Customer", "Hazelwood", "MO", "63042", "3148315555", 1)
+            oCustomers.Add(oCustomer)
+            Return oCustomers
+        End Function
     End Class
 End Namespace

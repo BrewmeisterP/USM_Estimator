@@ -1,18 +1,18 @@
-﻿Public Class frm_survey_entry
+﻿Imports Estimator.BusinessObjects
+
+Public Class frm_survey_entry
 
 #Region "Module Level Variables"
-    Private mn_fk_customer As Integer
-    Private ms_customer_name As String
+    Private ChosenCustomer As Customer
 #End Region
 
 #Region "Constructors and Form Initialization Logic"
-    Public Sub New(ByVal n_fk_customer As Integer, ByVal s_customer_name As String)
+    Public Sub New(ByVal GvnCustomer_iObj As Customer)
 
         ' This call is required by the designer.
         InitializeComponent()
 
-        mn_fk_customer = n_fk_customer
-        ms_customer_name = s_customer_name
+        ChosenCustomer = GvnCustomer_iObj
 
         lbl_Page_Num.Text = 1
         lbl_Item_Num.Text = 1
@@ -24,44 +24,23 @@
         'MessageBox.Show(Screen.PrimaryScreen.WorkingArea.Size().ToString)
     End Sub
 
-    Public Sub New(ByVal n_fk_customer As Integer, ByVal s_customer_name As String, ByVal substation As String, ByVal city As String, ByVal st As String, ByVal dt As DateTime, ByVal surveyor As String, ByVal pg As Integer)
-
-        ' This call is required by the designer.
-        InitializeComponent()
-
-        mn_fk_customer = n_fk_customer
-        ms_customer_name = s_customer_name
-
-        ' Add any initialization after the InitializeComponent() call.
-        Initialize_controls()
-
-        'Demo code
-        cmb_substation.Text = substation
-        txt_city.Text = city
-        cmb_state.Text = st
-        dt_date.Text = dt
-        cmb_surveyor.Text = surveyor
-        lbl_Page_Num.Text = pg + 1
-        lbl_Item_Num.Text = lbl_Page_Num.Text
-
-        txt_manufacturer.Select()
-
-        'Use this to log the current user's workable space
-        'MessageBox.Show(Screen.PrimaryScreen.WorkingArea.Size().ToString)
-    End Sub
-
-    Public Overloads Sub Show(ByRef frm_calling As Form)
-        Me.Show()
-        frm_calling.Close()
-
-    End Sub
-
     Private Sub Initialize_controls()
         'This initialization is for a new survey---------------------------
 
         'Form title
-        Me.Text = "Survey for " & ms_customer_name
+        Me.Text = "Survey for " & ChosenCustomer.Name
 
+        LoadSurveyorCmb()
+
+        lnkbtn_add_item.TabStop = False
+        lnkbtn_copy_item.TabStop = False
+        lnkbtn_add_component.TabStop = False
+
+        dt_date.Value = Today
+
+    End Sub
+
+    Private Sub LoadSurveyorCmb()
         'Load surveyor combobox
         cmb_surveyor.DataSource = Global_Data.SurveyorView
         cmb_surveyor.ValueMember = "pk_employee"
@@ -70,13 +49,6 @@
 
         cmb_surveyor.AutoCompleteMode = AutoCompleteMode.Append
         cmb_surveyor.AutoCompleteSource = AutoCompleteSource.ListItems
-
-        lnkbtn_add_item.TabStop = False
-        lnkbtn_copy_item.TabStop = False
-        lnkbtn_add_component.TabStop = False
-
-        dt_date.Value = Today
-
     End Sub
 #End Region
 
@@ -91,13 +63,22 @@
     End Sub
 
     Private Sub lnkbtn_add_unit_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles lnkbtn_add_item.LinkClicked
-        'Somehow I need to enumerate these or maintian them in a collection
+        Try
+            Add_New_Item_Entry_Control()
+        Catch ex As Exception
+            ShowErrorMessage(ex)
+        End Try
+    End Sub
+
+    Private Sub Add_New_Item_Entry_Control()
+        'Somehow I need to enumerate these or maintain them in a collection
         Dim ctl As New ctrl_item_entry
         ctl.lnklbl_delete.Visible = True
         flwpnl_Item.Controls.Add(ctl)
         flwpnl_Item.ScrollControlIntoView(ctl)
         ctl.Set_Focus_to_txt_Item_Name()
     End Sub
+
     Protected Sub Item_Brush_Blash_Entered() Handles Ctrl_item_entry1.Brush_Blast_Entered
         Me.SelectNextControl(Me.ActiveControl, True, True, True, True)
     End Sub
@@ -109,7 +90,11 @@
     End Sub
 
     Private Sub lnkbtn_add_component_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles lnkbtn_add_component.LinkClicked
-        Add_New_Component_Entry_Control()
+        Try
+            Add_New_Component_Entry_Control()
+        Catch ex As Exception
+            ShowErrorMessage(ex)
+        End Try
     End Sub
 
     Private Sub Add_New_Component_Entry_Control()
@@ -139,13 +124,23 @@
     End Sub
 
     Private Sub btn_next_Click(sender As Object, e As EventArgs) Handles btn_next.Click
-        Dim frm2 As New frm_survey_entry(mn_fk_customer, ms_customer_name, cmb_substation.Text, txt_city.Text, cmb_state.Text, dt_date.Text, cmb_surveyor.Text, lbl_Page_Num.Text)
-        frm2.Show(Me)
+        Try
+            ClearInputs()
+            SetUpInputsBasedOnCollection()
+        Catch ex As Exception
+            ShowErrorMessage(ex)
+        End Try
     End Sub
 
     Private Sub btn_finish_Click(sender As Object, e As EventArgs) Handles btn_finish.Click
-        Me.Close()
+        Try
+            'Insert the current Survey page to the database
+            SavePage()
 
+            Me.Close() 'Probably will want to return a dialog result eventually
+        Catch ex As Exception
+            ShowErrorMessage(ex)
+        End Try
     End Sub
 #End Region
 
@@ -218,4 +213,65 @@
     End Sub
 #End Region
 
+#Region "Saving a Page"
+    ''' <summary>
+    ''' Save's the current page's information to the database
+    ''' </summary>
+    Private Sub SavePage()
+        'Save the survey info
+        Dim iSurveyPK As Integer
+        Dim SurveryorPK As Integer
+        SurveryorPK = 1 'Need to get the actual employee who entered the survey
+        iSurveyPK = DAL.Survey_Insert(ChosenCustomer.Key, SurveryorPK)
+        'Save the substation 
+        Dim iSubstationPK As Integer
+        iSubstationPK = DAL.Substation_Insert(iSurveyPK, cmb_substation.Text.Trim(), txt_city.Text, cmb_state.Text.Trim(), ZipMaybe:=Nothing) 'Hardcoded nothing because the GUI doesn't allow the user to enter it
+        'Save the Item Set
+        Dim ItemSetPK As Integer
+        ItemSetPK = DAL.ItemSet_Insert(iSubstationPK, SurveryorPK, lbl_Item_Num.Text, txt_manufacturer.Text.Trim(), txt_size.Text.Trim(),
+                                               txt_voltage.Text.Trim(), lbl_Page_Num.Text.Trim(), dt_date.Value, txt_foreman_notes.Text.Trim(),
+                                               txt_customer_notes.Text.Trim(), txt_surveyor_notes.Text.Trim())
+        'Save the Items to the Item Set
+        For Each lpControl As Control In flwpnl_Item.Controls
+            Dim ItemEntryControl As ctrl_item_entry
+            ItemEntryControl = CType(lpControl, ctrl_item_entry)
+            ItemEntryControl.SaveItem(ItemSetPK)
+        Next
+        'Save the Component(s)
+        For Each lpControl As Control In flwpnl_component.Controls
+            Dim CompontenEntryControl As ctrl_component_entry
+            CompontenEntryControl = CType(lpControl, ctrl_component_entry)
+            CompontenEntryControl.SaveComponent(ItemSetPK)
+        Next
+    End Sub
+#End Region
+
+    Private Sub ClearInputs()
+        txt_city.Clear()
+        cmb_substation.SelectedItem = -1
+        cmb_state.SelectedItem = -1
+        cmb_surveyor.SelectedItem = -1
+        txt_manufacturer.Clear()
+        txt_size.Clear()
+        txt_voltage.Clear()
+        txt_customer_notes.Clear()
+        txt_foreman_notes.Clear()
+        txt_surveyor_notes.Clear()
+        flwpnl_Item.Controls.Clear()
+        flwpnl_component.Controls.Clear()
+
+    End Sub
+
+    Private Sub SetUpInputsBasedOnCollection()
+        Add_New_Item_Entry_Control()
+
+        Add_New_Component_Entry_Control()
+
+    End Sub
+
+#Region "Error Handling"
+    Private Sub ShowErrorMessage(ex As Exception)
+        MessageBox.Show(ex.ToString(), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+    End Sub
+#End Region
 End Class

@@ -48,4 +48,11 @@
             e.SuppressKeyPress = True
         End If
     End Sub
+
+    ''' <summary>
+    ''' Gvn the ItemSet Primary Key save the Item Information to the database
+    ''' </summary>
+    Public Sub SaveItem(ByVal ItemSet_Pk As Integer)
+        DAL.Item_Insert(ItemSet_Pk, txt_item_name.Text, txt_item_serial_no.Text, txt_pct_brush_blast.Text, txt_pct_spot_blast.Text)
+    End Sub
 End Class

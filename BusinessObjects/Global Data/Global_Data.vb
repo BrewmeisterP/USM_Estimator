@@ -1,4 +1,6 @@
 ﻿
+Imports System.Data.SqlClient
+
 Public Class Global_Data
 
     Public Shared EmployeeTable As DataTable
@@ -27,9 +29,7 @@ Public Class Global_Data
     End Sub
 
     Private Shared Sub Load_Component_Type_Data()
-        ComponentTypeTable = SqlHelper.ExecuteDataTable(CommandType.StoredProcedure, "stp_global__component_type")
+        ComponentTypeTable = SqlHelper.ExecuteDataTable(CommandType.StoredProcedure, "stp_component_type__select")
     End Sub
-
-
 
 End Class

@@ -33,12 +33,14 @@ Partial Class frm_survey_select
         '
         'cmb_Customer
         '
+        Me.cmb_Customer.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
+        Me.cmb_Customer.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
         Me.cmb_Customer.FlatStyle = System.Windows.Forms.FlatStyle.System
         Me.cmb_Customer.FormattingEnabled = True
         Me.cmb_Customer.Location = New System.Drawing.Point(18, 73)
         Me.cmb_Customer.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
         Me.cmb_Customer.Name = "cmb_Customer"
-        Me.cmb_Customer.Size = New System.Drawing.Size(300, 31)
+        Me.cmb_Customer.Size = New System.Drawing.Size(300, 27)
         Me.cmb_Customer.TabIndex = 1
         '
         'Label1
@@ -46,7 +48,7 @@ Partial Class frm_survey_select
         Me.Label1.AutoSize = True
         Me.Label1.Location = New System.Drawing.Point(18, 50)
         Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(135, 23)
+        Me.Label1.Size = New System.Drawing.Size(109, 19)
         Me.Label1.TabIndex = 3
         Me.Label1.Text = "Customer Name"
         '
@@ -55,7 +57,7 @@ Partial Class frm_survey_select
         Me.Label2.AutoSize = True
         Me.Label2.Location = New System.Drawing.Point(18, 116)
         Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(248, 23)
+        Me.Label2.Size = New System.Drawing.Size(201, 19)
         Me.Label2.TabIndex = 6
         Me.Label2.Text = "Surveys for XXXXXXXXXXXXXXX"
         '
@@ -99,7 +101,7 @@ Partial Class frm_survey_select
         '
         'frm_survey_select
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(9.0!, 23.0!)
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 19.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.Color.FromArgb(CType(CType(195, Byte), Integer), CType(CType(195, Byte), Integer), CType(CType(195, Byte), Integer))
         Me.ClientSize = New System.Drawing.Size(435, 341)
