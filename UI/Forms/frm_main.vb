@@ -1,4 +1,6 @@
-﻿Public Class frm_main
+﻿Imports Estimator.BusinessObjects
+
+Public Class frm_main
 
     Public Sub New()
 
@@ -20,7 +22,7 @@
     Private Sub btn_survey_Click(sender As Object, e As EventArgs) Handles btn_survey.Click
         Dim frm1 As New frm_survey_select
         If frm1.ShowDialog = DialogResult.OK Then
-            Dim frm2 As New frm_survey_entry(frm1.pk_customer, frm1.customer_name)
+            Dim frm2 As New frm_survey_entry(CustomerService.BuildHardCoded().Items(0)) 'HACK - Replace hard coded crap here
             frm2.Show(Me)
         End If
     End Sub

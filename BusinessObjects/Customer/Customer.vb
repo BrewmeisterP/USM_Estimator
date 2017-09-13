@@ -70,5 +70,9 @@ Namespace BusinessObjects
             Key = iKey
         End Sub
 
+        Public Overrides Function ToString() As String
+            Return Name
+        End Function
+
     End Class
 End Namespace

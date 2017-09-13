@@ -128,6 +128,7 @@
     <Compile Include="BusinessObjects\Survey\Survey.vb" />
     <Compile Include="BusinessObjects\Survey\Surveys.vb" />
     <Compile Include="BusinessObjects\Survey\SurveyService.vb" />
+    <Compile Include="DAL\DAL.vb" />
     <Compile Include="My Project\Resources.Designer.vb">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

@@ -185,6 +185,8 @@ Partial Class frm_survey_entry
         '
         'cmb_surveyor
         '
+        Me.cmb_surveyor.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
+        Me.cmb_surveyor.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
         Me.cmb_surveyor.FlatStyle = System.Windows.Forms.FlatStyle.System
         Me.cmb_surveyor.Font = New System.Drawing.Font("Segoe UI", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.cmb_surveyor.FormattingEnabled = True
@@ -269,6 +271,8 @@ Partial Class frm_survey_entry
         '
         'cmb_substation
         '
+        Me.cmb_substation.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
+        Me.cmb_substation.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
         Me.cmb_substation.FlatStyle = System.Windows.Forms.FlatStyle.System
         Me.cmb_substation.Font = New System.Drawing.Font("Segoe UI", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.cmb_substation.FormattingEnabled = True
@@ -400,7 +404,7 @@ Partial Class frm_survey_entry
         '
         Me.chk_busing_caps.AutoSize = True
         Me.chk_busing_caps.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.chk_busing_caps.Location = New System.Drawing.Point(842, 511)
+        Me.chk_busing_caps.Location = New System.Drawing.Point(655, 639)
         Me.chk_busing_caps.Name = "chk_busing_caps"
         Me.chk_busing_caps.Size = New System.Drawing.Size(114, 23)
         Me.chk_busing_caps.TabIndex = 15
@@ -411,7 +415,7 @@ Partial Class frm_survey_entry
         '
         Me.chk_overspray.AutoSize = True
         Me.chk_overspray.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.chk_overspray.Location = New System.Drawing.Point(842, 479)
+        Me.chk_overspray.Location = New System.Drawing.Point(655, 607)
         Me.chk_overspray.Name = "chk_overspray"
         Me.chk_overspray.Size = New System.Drawing.Size(149, 23)
         Me.chk_overspray.TabIndex = 14
@@ -422,7 +426,7 @@ Partial Class frm_survey_entry
         '
         Me.chk_outtage.AutoSize = True
         Me.chk_outtage.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.chk_outtage.Location = New System.Drawing.Point(842, 447)
+        Me.chk_outtage.Location = New System.Drawing.Point(655, 575)
         Me.chk_outtage.Name = "chk_outtage"
         Me.chk_outtage.Size = New System.Drawing.Size(128, 23)
         Me.chk_outtage.TabIndex = 13
@@ -639,7 +643,7 @@ Partial Class frm_survey_entry
         Me.flwpnl_component.FlowDirection = System.Windows.Forms.FlowDirection.TopDown
         Me.flwpnl_component.Location = New System.Drawing.Point(12, 415)
         Me.flwpnl_component.Margin = New System.Windows.Forms.Padding(0)
-        Me.flwpnl_component.MaximumSize = New System.Drawing.Size(622, 140)
+        Me.flwpnl_component.MaximumSize = New System.Drawing.Size(622, 253)
         Me.flwpnl_component.Name = "flwpnl_component"
         Me.flwpnl_component.Size = New System.Drawing.Size(622, 34)
         Me.flwpnl_component.TabIndex = 5
@@ -652,7 +656,7 @@ Partial Class frm_survey_entry
         Me.Panel2.Controls.Add(Me.btn_next)
         Me.Panel2.Controls.Add(Me.btn_finish)
         Me.Panel2.Controls.Add(Me.btn_cancel)
-        Me.Panel2.Location = New System.Drawing.Point(0, 577)
+        Me.Panel2.Location = New System.Drawing.Point(0, 717)
         Me.Panel2.Name = "Panel2"
         Me.Panel2.Size = New System.Drawing.Size(1008, 73)
         Me.Panel2.TabIndex = 16
@@ -730,7 +734,7 @@ Partial Class frm_survey_entry
         'lnkbtn_add_component
         '
         Me.lnkbtn_add_component.AutoSize = True
-        Me.lnkbtn_add_component.Location = New System.Drawing.Point(12, 554)
+        Me.lnkbtn_add_component.Location = New System.Drawing.Point(12, 451)
         Me.lnkbtn_add_component.Name = "lnkbtn_add_component"
         Me.lnkbtn_add_component.Size = New System.Drawing.Size(106, 19)
         Me.lnkbtn_add_component.TabIndex = 77
@@ -779,7 +783,7 @@ Partial Class frm_survey_entry
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 19.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(1008, 650)
+        Me.ClientSize = New System.Drawing.Size(1008, 790)
         Me.Controls.Add(Me.lnkbtn_add_component)
         Me.Controls.Add(Me.Label26)
         Me.Controls.Add(Me.Label25)
