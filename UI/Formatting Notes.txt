@@ -1,0 +1,7 @@
+﻿Font	Segoe 10pt
+Text boxes 25 px High
+Space between text boxes 11px
+Vertical space between labels and text boxes 23px (top left to top left)
+Vertical space between textbox and control under 29px (top left to top left) - seems low.
+	* Line up top of lable with bottom of text box and then arrow down 11px
+
