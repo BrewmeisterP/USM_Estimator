@@ -50,16 +50,17 @@ Partial Class frm_main
         '
         'btn_settings
         '
+        Me.btn_settings.BackColor = System.Drawing.SystemColors.Control
         Me.btn_settings.Image = Global.Estimator.My.Resources.Resources.settings_button
         Me.btn_settings.Location = New System.Drawing.Point(710, 12)
         Me.btn_settings.Name = "btn_settings"
         Me.btn_settings.Size = New System.Drawing.Size(60, 60)
         Me.btn_settings.TabIndex = 3
-        Me.btn_settings.UseVisualStyleBackColor = True
+        Me.btn_settings.UseVisualStyleBackColor = False
         '
         'frm_main
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(9.0!, 21.0!)
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 17.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(782, 353)
         Me.Controls.Add(Me.btn_settings)
